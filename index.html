@@ -18,9 +18,12 @@
       <h1 class="top-title">MOST EXPENSIVE</h1>
       <div class="top-img-container">
         <img src="img/crown.png" alt="User Image" class="top-img-crown">
-        <img src="img/1.jpg" alt="User Image" class="top-img-user">
+        <img src="" alt="User Image" class="top-img-user">
       </div>
-      <h1 class="user-name top-user"></h1>
+      <div class="user-name-container top-user">
+        <h1 class="user-name top-user"></h1>
+        <h3 class="user-type top-user"></h3>
+      </div>
       <div class="user-score-container top-user">
         <img src="img/elixir2.png" alt="Elixir Icon" class="user-score-icon">
         <h2 class="user-score top-user"></h2>
@@ -34,6 +37,7 @@
 
     var topUserImg = document.querySelector(".top-img-user");
     var topUserName = document.querySelector(".user-name.top-user");
+    var topUsertype = document.querySelector(".user-type.top-user");
     var topUserScore = document.querySelector(".user-score.top-user");
     console.log(topUserImg, topUserName);
 
@@ -64,6 +68,7 @@
         else {
           topUserImg.src = newImgUrl;
           topUserName.innerHTML = element.name;
+          topUsertype.innerHTML = element.type;
           topUserScore.innerHTML = element.elixirCost;
         }
       })

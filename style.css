@@ -61,7 +61,6 @@ body {
 	height: 75px;
 	width: 75px;
 	border-radius: 50%;
-	/* border: 1px solid purple; */
 	margin: auto 1rem;
 }
 
@@ -129,4 +128,9 @@ body {
 
 .user-name.top-user {
 	margin: 0.5rem auto;
+}
+
+.user-type.top-user {
+	text-align: center;
+	color: #f0f0f0;
 }
