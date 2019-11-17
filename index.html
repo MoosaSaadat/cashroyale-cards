@@ -11,26 +11,7 @@
   <div class="main-container">
     <div class="left-container">
       <ul class="user-list">
-        <li class="user-info">
-          <img src="img/1.jpg" alt="User Image" class="user-img">
-          <h2 class="user-name">Hello There</h2>
-          <div class="user-score">1000</div>
-        </li>
-        <li class="user-info">
-          <img src="img/1.jpg" alt="User Image" class="user-img">
-          <h2 class="user-name">Hello There</h2>
-          <div class="user-score">1000</div>
-        </li>
-        <li class="user-info">
-          <img src="img/1.jpg" alt="User Image" class="user-img">
-          <h2 class="user-name">Hello There</h2>
-          <div class="user-score">1000</div>
-        </li>
-        <li class="user-info">
-          <img src="img/1.jpg" alt="User Image" class="user-img">
-          <h2 class="user-name">Hello There</h2>
-          <div class="user-score">1000</div>
-        </li>
+        <!-- ITEMS ENTERED FROM JAVASCRIPT -->
       </ul>
     </div>
     <div class="right-container">
@@ -46,29 +27,39 @@
   </div>
   <script>
     var apiEndpoint = "http://www.clashapi.xyz/api/cards";
-    var usersList = document.querySelectorAll(".user-info");
+    var usersList = document.querySelector(".user-list");
+    var listElements = "";
 
-    async function getData () {
+    async function fetchData () {
       const userData = await fetch(apiEndpoint);
       const jsonData = await userData.json();
       jsonData.sort((item, anItem) => anItem.elixirCost - item.elixirCost);
       console.log(jsonData.slice(0, 5));
+      const reqUserData = jsonData.slice(0, 5);
 
-      usersList.forEach((element, idx) => {
-        let currCard = jsonData[1+idx];
-        let newImgUrl = `http://www.clashapi.xyz/images/cards/${currCard.idName}.png`;
-        element.innerHTML = (`
-          <img src=${newImgUrl} alt="User Image" class="user-img">
-          <div class="user-name-container">
-            <h2 class="user-name">${currCard.name}</h2>
-            <h4 class="user-type">${currCard.type}</h4>
-          </div>
-          <h2 class="user-score">${currCard.elixirCost}</h2>
-        `);
-      });
+      reqUserData.forEach((element, idx) => {
+        if (idx > 0) {
+          let newImgUrl = `http://www.clashapi.xyz/images/cards/${element.idName}.png`;
+          listElements += (`
+          <li class="user-info">
+            <img src=${newImgUrl} alt="User Image" class="user-img">
+            <div class="user-name-container">
+              <h2 class="user-name">${element.name}</h2>
+              <h4 class="user-type">${element.type}</h4>
+            </div>
+            <div class="user-score-container">
+              <img src="img/elixir.png" alt="Elixir Icon" class="user-score-icon">
+              <h2 class="user-score">${element.elixirCost}</h2>
+            </div>
+          </li>
+          `);
+        }
+      })
+      usersList.innerHTML = listElements;
     }
 
-    getData();
+    fetchData();
   </script>
+
 </body>
 </html>
