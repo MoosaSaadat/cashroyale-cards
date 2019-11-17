@@ -36,13 +36,39 @@
     <div class="right-container">
       <h1 class="top-title">TOP VOTED</h1>
       <div class="top-img-container">
-        <img src="" alt="User Image" class="top-img-crown">
-        <img src="" alt="User Image" class="top-img-user">
+        <img src="img/crown.png" alt="User Image" class="top-img-crown">
+        <img src="img/1.jpg" alt="User Image" class="top-img-user">
       </div>
-      <h1 class="top-user-name">Judy Kapoor</h1>
+      <h1 class="top-user-name">Judy Lawrence</h1>
       <h1 class="top-score">1100</h1>
 
     </div>
   </div>
+  <script>
+    var apiEndpoint = "http://www.clashapi.xyz/api/cards";
+    var usersList = document.querySelectorAll(".user-info");
+
+    async function getData () {
+      const userData = await fetch(apiEndpoint);
+      const jsonData = await userData.json();
+      jsonData.sort((item, anItem) => anItem.elixirCost - item.elixirCost);
+      console.log(jsonData.slice(0, 5));
+
+      usersList.forEach((element, idx) => {
+        let currCard = jsonData[1+idx];
+        let newImgUrl = `http://www.clashapi.xyz/images/cards/${currCard.idName}.png`;
+        element.innerHTML = (`
+          <img src=${newImgUrl} alt="User Image" class="user-img">
+          <div class="user-name-container">
+            <h2 class="user-name">${currCard.name}</h2>
+            <h4 class="user-type">${currCard.type}</h4>
+          </div>
+          <h2 class="user-score">${currCard.elixirCost}</h2>
+        `);
+      });
+    }
+
+    getData();
+  </script>
 </body>
 </html>
