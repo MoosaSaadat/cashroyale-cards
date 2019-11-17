@@ -15,20 +15,27 @@
       </ul>
     </div>
     <div class="right-container">
-      <h1 class="top-title">TOP VOTED</h1>
+      <h1 class="top-title">MOST EXPENSIVE</h1>
       <div class="top-img-container">
         <img src="img/crown.png" alt="User Image" class="top-img-crown">
         <img src="img/1.jpg" alt="User Image" class="top-img-user">
       </div>
-      <h1 class="top-user-name">Judy Lawrence</h1>
-      <h1 class="top-score">1100</h1>
-
+      <h1 class="user-name top-user"></h1>
+      <div class="user-score-container top-user">
+        <img src="img/elixir2.png" alt="Elixir Icon" class="user-score-icon">
+        <h2 class="user-score top-user"></h2>
+      </div>
     </div>
   </div>
   <script>
     var apiEndpoint = "http://www.clashapi.xyz/api/cards";
     var usersList = document.querySelector(".user-list");
     var listElements = "";
+
+    var topUserImg = document.querySelector(".top-img-user");
+    var topUserName = document.querySelector(".user-name.top-user");
+    var topUserScore = document.querySelector(".user-score.top-user");
+    console.log(topUserImg, topUserName);
 
     async function fetchData () {
       const userData = await fetch(apiEndpoint);
@@ -38,8 +45,8 @@
       const reqUserData = jsonData.slice(0, 5);
 
       reqUserData.forEach((element, idx) => {
+        let newImgUrl = `http://www.clashapi.xyz/images/cards/${element.idName}.png`;
         if (idx > 0) {
-          let newImgUrl = `http://www.clashapi.xyz/images/cards/${element.idName}.png`;
           listElements += (`
           <li class="user-info">
             <img src=${newImgUrl} alt="User Image" class="user-img">
@@ -48,11 +55,16 @@
               <h4 class="user-type">${element.type}</h4>
             </div>
             <div class="user-score-container">
-              <img src="img/elixir.png" alt="Elixir Icon" class="user-score-icon">
+              <img src="img/elixir2.png" alt="Elixir Icon" class="user-score-icon">
               <h2 class="user-score">${element.elixirCost}</h2>
             </div>
           </li>
           `);
+        }
+        else {
+          topUserImg.src = newImgUrl;
+          topUserName.innerHTML = element.name;
+          topUserScore.innerHTML = element.elixirCost;
         }
       })
       usersList.innerHTML = listElements;
