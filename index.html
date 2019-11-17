@@ -48,7 +48,7 @@
         let newImgUrl = `http://www.clashapi.xyz/images/cards/${element.idName}.png`;
         if (idx > 0) {
           listElements += (`
-          <li class="user-info">
+          <li class="user-info ${idx < reqUserData.length-1 ? "add-after" : ""}">
             <img src=${newImgUrl} alt="User Image" class="user-img">
             <div class="user-name-container">
               <h2 class="user-name">${element.name}</h2>

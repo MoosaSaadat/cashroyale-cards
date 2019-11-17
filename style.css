@@ -43,6 +43,18 @@ body {
 	align-items: center;
 	justify-content: flex-start;
 	color: #2d2d2d;
+	position: relative;
+}
+
+.user-info.add-after::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 300px;
+	height: 1px;
+	background-color: #d0d0d0;
 }
 
 .user-img {
